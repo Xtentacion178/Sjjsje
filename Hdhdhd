@@ -7339,7 +7339,7 @@ function Library:CreateWindow(WindowInfo)
 
                 setmetatable(Tab, BaseGroupbox)
 
-                Tabbox.Tabs[Name] = Tab
+                Tabbox.Tabs[Icon] = Tab
 
                 return Tab
             end
@@ -7378,9 +7378,6 @@ function Library:CreateWindow(WindowInfo)
                 Library.ActiveTab:Hide()
             end
 
-            TweenService:Create(TabButton, Library.TweenInfo, {
-                BackgroundTransparency = 0,
-            }):Play()
             if TabIcon then
                 TweenService:Create(TabIcon, Library.TweenInfo, {
                     ImageTransparency = 0,
@@ -7441,7 +7438,7 @@ function Library:CreateWindow(WindowInfo)
         end)
         TabButton.MouseButton1Click:Connect(Tab.Show)
 
-        Library.Tabs[Name] = Tab
+        Library.Tabs[Icon] = Tab
 
         return Tab
     end
