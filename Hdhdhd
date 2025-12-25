@@ -7438,7 +7438,7 @@ function Library:CreateWindow(WindowInfo)
         end)
         TabButton.MouseButton1Click:Connect(Tab.Show)
 
-        Library.Tabs[Icon] = Tab
+        Library.Tabs = Tab
 
         return Tab
     end
@@ -7598,9 +7598,6 @@ function Library:CreateWindow(WindowInfo)
                 return
             end
 
-            TweenService:Create(TabLabel, Library.TweenInfo, {
-                TextTransparency = Hovering and 0.25 or 0.5,
-            }):Play()
             if TabIcon then
                 TweenService:Create(TabIcon, Library.TweenInfo, {
                     ImageTransparency = Hovering and 0.25 or 0.5,
@@ -7615,9 +7612,6 @@ function Library:CreateWindow(WindowInfo)
 
             TweenService:Create(TabButton, Library.TweenInfo, {
                 BackgroundTransparency = 0,
-            }):Play()
-            TweenService:Create(TabLabel, Library.TweenInfo, {
-                TextTransparency = 0,
             }):Play()
             if TabIcon then
                 TweenService:Create(TabIcon, Library.TweenInfo, {
@@ -7649,9 +7643,6 @@ function Library:CreateWindow(WindowInfo)
         function Tab:Hide()
             TweenService:Create(TabButton, Library.TweenInfo, {
                 BackgroundTransparency = 1,
-            }):Play()
-            TweenService:Create(TabLabel, Library.TweenInfo, {
-                TextTransparency = 0.5,
             }):Play()
             if TabIcon then
                 TweenService:Create(TabIcon, Library.TweenInfo, {
