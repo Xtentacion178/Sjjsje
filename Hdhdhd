@@ -7251,14 +7251,15 @@ function Library:CreateWindow(WindowInfo)
                 Tabs = {},
             }
 
-            function Tabbox:AddTab(Name)
-                local Button = New("TextButton", {
+            function Tabbox:AddTab(ImageId)
+
+             ImageId = ImageId or "rbxasseid://"
+                local Button = New("ImageButton", {
                     BackgroundColor3 = "MainColor",
                     BackgroundTransparency = 0,
                     Size = UDim2.fromOffset(0, 34),
-                    Text = Name,
-                    TextSize = 15,
-                    TextTransparency = 0.5,
+                    Image = ImageId,
+                    ImageColo3 = Color3.fromRGB(255,0,0),
                     Parent = TabboxButtons,
                 })
 
@@ -7344,8 +7345,8 @@ function Library:CreateWindow(WindowInfo)
                 return Tab
             end
 
-            if Info.Name then
-                Tab.Tabboxes[Info.Name] = Tabbox
+            if Info.ImageId then
+                Tab.Tabboxes[Info.ImageId] = Tabbox
             else
                 table.insert(Tab.Tabboxes, Tabbox)
             end
@@ -7391,7 +7392,6 @@ function Library:CreateWindow(WindowInfo)
                     SearchBox.Size = UDim2.fromScale(0.5, 1)
                 end
 
-                CurrentTabLabel.Text = Name
                 CurrentTabDescription.Text = Description
             end
 
@@ -7438,31 +7438,25 @@ function Library:CreateWindow(WindowInfo)
         end)
         TabButton.MouseButton1Click:Connect(Tab.Show)
 
-        Library.Tabs = Tab
-
         return Tab
     end
 
     function Window:AddKeyTab(...)
-        local Name = nil
         local Icon = nil
         local Description = nil
 
         if select("#", ...) == 1 and typeof(...) == "table" then
             local Info = select(1, ...)
-            Name = Info.Name or "Tab"
             Icon = Info.Icon
             Description = Info.Description
         else
-            Name = select(1, ...) or "Tab"
-            Icon = select(2, ...)
-            Description = select(3, ...)
+            Icon = select(1, ...)
+            Description = select(2, ...)
         end
 
         Icon = Icon or "key"
 
         local TabButton: TextButton
-        local TabLabel
         local TabIcon
 
         local TabContainer
@@ -7484,19 +7478,6 @@ function Library:CreateWindow(WindowInfo)
                 Parent = TabButton,
             })
             table.insert(LayoutRefs.TabPadding, KeyTabPadding)
-
-            TabLabel = New("TextLabel", {
-                BackgroundTransparency = 1,
-                Position = UDim2.fromOffset(30, 0),
-                Size = UDim2.new(1, -30, 1, 0),
-                Text = Name,
-                TextSize = 16,
-                TextTransparency = 0.5,
-                TextXAlignment = Enum.TextXAlignment.Left,
-                Visible = not LayoutState.IsCompact,
-                Parent = TabButton,
-            })
-            table.insert(LayoutRefs.TabLabels, TabLabel)
 
             if Icon then
                 TabIcon = New("ImageLabel", {
